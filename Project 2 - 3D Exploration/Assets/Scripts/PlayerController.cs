@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     private float x;
     private float z;
     public float lives = 3f;
+    [SerializeField]
+    GameObject loseScreen;
     
    
     [SerializeField]
@@ -47,7 +49,7 @@ public class PlayerController : MonoBehaviour
 
     public Image keypadScreen;
 
-    [SerializeField]
+    /*[SerializeField]
     GameObject button1;
     [SerializeField]
     GameObject button2;
@@ -81,8 +83,9 @@ public class PlayerController : MonoBehaviour
     GameObject char3;
     [SerializeField]
     GameObject char4;
+    */
 
-    public Text KeypadExit;
+    //public Text KeypadExit;
 
 
     // Start is called before the first frame update
@@ -91,6 +94,7 @@ public class PlayerController : MonoBehaviour
       rigidBody = GetComponent<Rigidbody>(); 
       collider = GetComponent<CapsuleCollider>();
 
+      loseScreen.gameObject.SetActive (false);
       LeverOneUp.gameObject.SetActive (true);
       LeverOneDown.gameObject.SetActive (false);
       LazerDoorOne.gameObject.SetActive (true);
@@ -106,7 +110,7 @@ public class PlayerController : MonoBehaviour
       CloseToLeverOne = false;
       CloseToLeverTwo = false;
       CloseToLeverThree = false;
-
+        /*
       AtKeypad = false;
 
       keypadScreen.enabled = false;
@@ -131,12 +135,15 @@ public class PlayerController : MonoBehaviour
       char4.gameObject.SetActive (false);
 
       KeypadExit.gameObject.SetActive (false);
+      */
     }
+    
 
     void Update()
     {
         x = Input.GetAxis("Horizontal");
         z = Input.GetAxis("Vertical");
+        GameOver();
 
       
         
@@ -162,7 +169,7 @@ public class PlayerController : MonoBehaviour
                 LeverThreeDown.gameObject.SetActive (true);
                 LazerDoorThree.gameObject.SetActive (false);
             }
-
+            /*
             if (AtKeypad == true)
             {
                 keypadScreen.enabled = true;
@@ -188,8 +195,9 @@ public class PlayerController : MonoBehaviour
 
                 KeypadExit.gameObject.SetActive (true);
             }
+            */
         }
-
+        /*
         if (Input.GetKey(KeyCode.R))
         {
             keypadScreen.enabled = false;
@@ -215,6 +223,7 @@ public class PlayerController : MonoBehaviour
 
             KeypadExit.gameObject.SetActive (false);
         }
+        */
     }
 
     // Update is called once per frame
@@ -258,17 +267,19 @@ public class PlayerController : MonoBehaviour
             CloseToLeverThree = true;
         }
 
-        if (other.gameObject.CompareTag("Keypad"))
+        /*if (other.gameObject.CompareTag("Keypad"))
         {
             AtKeypad = true;
         }
+        */
     }
     
     void GameOver()
     {
         if(lives == 0)
         {
-           
+            SceneManager.LoadScene("Main_Level");
+           //loseScreen.gameObject.SetActive(true);
         }
 
     }
