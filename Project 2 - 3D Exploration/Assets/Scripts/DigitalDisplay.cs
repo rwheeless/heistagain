@@ -124,7 +124,7 @@ public class DigitalDisplay : MonoBehaviour
 
     private void CheckResults()
     {
-        if (codeSequence == "5984")
+        if (codeSequence == "5948")
         {
             Debug.Log("Correct!");
         }

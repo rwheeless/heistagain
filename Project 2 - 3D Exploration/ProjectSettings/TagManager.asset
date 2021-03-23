@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Enemy
   - LeverThree
+  - LeverOne
+  - LeverTwo
+  - Keypad
   layers:
   - Default
   - TransparentFX

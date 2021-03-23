@@ -22,22 +22,22 @@ public class PlayerController : MonoBehaviour
     GameObject LeverOneUp;
     [SerializeField]
     GameObject LeverOneDown;
-    //[SerializeField]
-    //GameObject LazerDoorOne;
+    [SerializeField]
+    GameObject LazerDoorOne;
 
     [SerializeField]
     GameObject LeverTwoUp;
     [SerializeField]
     GameObject LeverTwoDown;
-    //[SerializeField]
-    //GameObject LazerDoorTwo;
+    [SerializeField]
+    GameObject LazerDoorTwo;
 
     [SerializeField]
     GameObject LeverThreeUp;
     [SerializeField]
     GameObject LeverThreeDown;
-    //[SerializeField]
-    //GameObject LazerDoorThree;
+    [SerializeField]
+    GameObject LazerDoorThree;
 
     private bool CloseToLeverOne;
     private bool CloseToLeverTwo;
@@ -93,15 +93,15 @@ public class PlayerController : MonoBehaviour
 
       LeverOneUp.gameObject.SetActive (true);
       LeverOneDown.gameObject.SetActive (false);
-      //LazerDoorOne.gameObject.SetActive (true);
+      LazerDoorOne.gameObject.SetActive (true);
 
       LeverTwoUp.gameObject.SetActive (true);
       LeverTwoDown.gameObject.SetActive (false);
-      //LazerDoorTwo.gameObject.SetActive (true);
+      LazerDoorTwo.gameObject.SetActive (true);
 
       LeverThreeUp.gameObject.SetActive (true);
       LeverThreeDown.gameObject.SetActive (false);
-      //LazerDoorThree.gameObject.SetActive (true);
+      LazerDoorThree.gameObject.SetActive (true);
 
       CloseToLeverOne = false;
       CloseToLeverTwo = false;
@@ -137,9 +137,8 @@ public class PlayerController : MonoBehaviour
     {
         x = Input.GetAxis("Horizontal");
         z = Input.GetAxis("Vertical");
-        //GameOver();
 
-        //moveDirection = x * transform.right + z * transform.forward
+      
         
         if (Input.GetKey(KeyCode.E))
         {
@@ -147,21 +146,21 @@ public class PlayerController : MonoBehaviour
             {
               LeverOneUp.gameObject.SetActive (false);
               LeverOneDown.gameObject.SetActive (true);
-              //LazerDoorOne.gameObject.SetActive (false);
+              LazerDoorOne.gameObject.SetActive (false);
             }
 
             if (CloseToLeverTwo == true)
             {
                 LeverTwoUp.gameObject.SetActive (false);
                 LeverTwoDown.gameObject.SetActive (true);
-                //LazerDoorTwo.gameObject.SetActive (false);
+                LazerDoorTwo.gameObject.SetActive (false);
             }
 
             if (CloseToLeverThree == true)
             {
                 LeverThreeUp.gameObject.SetActive (false);
                 LeverThreeDown.gameObject.SetActive (true);
-                //LazerDoorThree.gameObject.SetActive (false);
+                LazerDoorThree.gameObject.SetActive (false);
             }
 
             if (AtKeypad == true)
@@ -191,7 +190,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.P))
+        if (Input.GetKey(KeyCode.R))
         {
             keypadScreen.enabled = false;
 
@@ -264,16 +263,16 @@ public class PlayerController : MonoBehaviour
             AtKeypad = true;
         }
     }
-
-    /*void GameOver()
+    
+    void GameOver()
     {
         if(lives == 0)
         {
-            SceneManager.LoadScene("insert scene name");
+           
         }
 
     }
-    */
+    
     
     
 }
