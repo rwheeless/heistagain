@@ -12,12 +12,16 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rigidBody;
     private CapsuleCollider collider;
     private Vector3 moveDirection;
+    AudioSource audioSource;
     private Vector3 velocity;
     private float x;
     private float z;
     public float lives = 3f;
     [SerializeField]
     GameObject loseScreen;
+    [SerializeField]
+    GameObject winScreen;
+    
     
    
     [SerializeField]
@@ -44,10 +48,13 @@ public class PlayerController : MonoBehaviour
     private bool CloseToLeverOne;
     private bool CloseToLeverTwo;
     private bool CloseToLeverThree;
+    private bool win = false;
 
     private bool AtKeypad;
 
     public Image keypadScreen;
+
+    public AudioClip leverSound;
 
     /*[SerializeField]
     GameObject button1;
@@ -91,25 +98,27 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-      rigidBody = GetComponent<Rigidbody>(); 
-      collider = GetComponent<CapsuleCollider>();
+        audioSource = GetComponent<AudioSource>();
+        rigidBody = GetComponent<Rigidbody>(); 
+        collider = GetComponent<CapsuleCollider>();
 
-      loseScreen.gameObject.SetActive (false);
-      LeverOneUp.gameObject.SetActive (true);
-      LeverOneDown.gameObject.SetActive (false);
-      LazerDoorOne.gameObject.SetActive (true);
+        winScreen.gameObject.SetActive (false);    
+        loseScreen.gameObject.SetActive (false);
+        LeverOneUp.gameObject.SetActive (true);
+        LeverOneDown.gameObject.SetActive (false);
+        LazerDoorOne.gameObject.SetActive (true);
 
-      LeverTwoUp.gameObject.SetActive (true);
-      LeverTwoDown.gameObject.SetActive (false);
-      LazerDoorTwo.gameObject.SetActive (true);
+        LeverTwoUp.gameObject.SetActive (true);
+        LeverTwoDown.gameObject.SetActive (false);
+        LazerDoorTwo.gameObject.SetActive (true);
 
-      LeverThreeUp.gameObject.SetActive (true);
-      LeverThreeDown.gameObject.SetActive (false);
-      LazerDoorThree.gameObject.SetActive (true);
+        LeverThreeUp.gameObject.SetActive (true);
+        LeverThreeDown.gameObject.SetActive (false);
+        LazerDoorThree.gameObject.SetActive (true);
 
-      CloseToLeverOne = false;
-      CloseToLeverTwo = false;
-      CloseToLeverThree = false;
+        CloseToLeverOne = false;
+        CloseToLeverTwo = false;
+        CloseToLeverThree = false;
         /*
       AtKeypad = false;
 
@@ -151,9 +160,12 @@ public class PlayerController : MonoBehaviour
         {
             if (CloseToLeverOne == true)
             {
-              LeverOneUp.gameObject.SetActive (false);
-              LeverOneDown.gameObject.SetActive (true);
-              LazerDoorOne.gameObject.SetActive (false);
+                LeverOneUp.gameObject.SetActive (false);
+                LeverOneDown.gameObject.SetActive (true);
+                LazerDoorOne.gameObject.SetActive (false);
+                audioSource.clip = leverSound;
+                audioSource.Play();
+                CloseToLeverOne = false;
             }
 
             if (CloseToLeverTwo == true)
@@ -161,6 +173,10 @@ public class PlayerController : MonoBehaviour
                 LeverTwoUp.gameObject.SetActive (false);
                 LeverTwoDown.gameObject.SetActive (true);
                 LazerDoorTwo.gameObject.SetActive (false);
+                audioSource.clip = leverSound;
+                audioSource.Play();
+                CloseToLeverTwo = false;
+                
             }
 
             if (CloseToLeverThree == true)
@@ -168,6 +184,9 @@ public class PlayerController : MonoBehaviour
                 LeverThreeUp.gameObject.SetActive (false);
                 LeverThreeDown.gameObject.SetActive (true);
                 LazerDoorThree.gameObject.SetActive (false);
+                audioSource.clip = leverSound;
+                audioSource.Play();
+                CloseToLeverThree = false;
             }
             /*
             if (AtKeypad == true)
@@ -224,6 +243,11 @@ public class PlayerController : MonoBehaviour
             KeypadExit.gameObject.SetActive (false);
         }
         */
+
+        if (win)
+        {
+            Restart();
+        }
     }
 
     // Update is called once per frame
@@ -267,6 +291,14 @@ public class PlayerController : MonoBehaviour
             CloseToLeverThree = true;
         }
 
+        if (other.gameObject.CompareTag("WinCollider"))
+        {
+            win = true;
+            winScreen.gameObject.SetActive(true);
+            rigidBody.constraints = RigidbodyConstraints.FreezeAll;
+            
+        }
+
         /*if (other.gameObject.CompareTag("Keypad"))
         {
             AtKeypad = true;
@@ -278,10 +310,19 @@ public class PlayerController : MonoBehaviour
     {
         if(lives == 0)
         {
-            SceneManager.LoadScene("Main_Level");
-           //loseScreen.gameObject.SetActive(true);
+            Restart();
+            loseScreen.gameObject.SetActive(true);
+            rigidBody.constraints = RigidbodyConstraints.FreezeAll;
         }
 
+    }
+
+    void Restart()
+    {
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene("Main_Level");
+        }
     }
     
     

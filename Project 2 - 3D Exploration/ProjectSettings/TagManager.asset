@@ -9,6 +9,7 @@ TagManager:
   - LeverOne
   - LeverTwo
   - Keypad
+  - WinCollider
   layers:
   - Default
   - TransparentFX

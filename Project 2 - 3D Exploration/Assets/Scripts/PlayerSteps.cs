@@ -22,6 +22,7 @@ public class PlayerSteps : MonoBehaviour
         {
           musicSource.clip = musicClipOne;
           musicSource.Play();
+          musicSource.loop = true;
           
 
          }
@@ -29,6 +30,7 @@ public class PlayerSteps : MonoBehaviour
      if (Input.GetKeyUp(KeyCode.W)|| Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D) || Input.GetKeyDown(KeyCode.Space))
         {
           musicSource.Stop();
+          musicSource.loop = false;
 
          }
     }
